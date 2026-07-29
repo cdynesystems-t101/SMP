@@ -1,0 +1,59 @@
+{
+  "id": "./",
+  "short_name": "SplitMate",
+  "name": "SplitMate Pro - Multi-Currency Expense Splitter",
+  "description": "Multi-currency travel expense splitter and receipt scanner with offline-first greedy minimum cash flow math.",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "maskable-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "start_url": "./",
+  "scope": "./",
+  "background_color": "#0f172a",
+  "theme_color": "#4f46e5",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui", "browser"],
+  "orientation": "portrait",
+  "dir": "ltr",
+  "lang": "en-US",
+  "categories": ["finance", "travel", "utilities"],
+  "prefer_related_applications": false,
+  "shortcuts": [
+    {
+      "name": "Add Expense",
+      "short_name": "Add",
+      "description": "Quickly log a new expense",
+      "url": "./?action=add-expense",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Voice Expense",
+      "short_name": "Voice",
+      "description": "Log expense using voice",
+      "url": "./?action=voice-expense",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
