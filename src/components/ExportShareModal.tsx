@@ -121,15 +121,104 @@ export const ExportShareModal: React.FC<ExportShareModalProps> = ({
           </div>
 
           {/* PWA Manifest for PWABuilder / Play Store */}
-          <div className="bg-slate-950 border border-indigo-500/30 rounded-2xl p-3.5 space-y-2">
-            <div className="font-bold text-xs text-indigo-300 flex items-center gap-1.5">
-              <Smartphone className="w-4 h-4 text-indigo-400" />
-              <span>PWA Web App Manifest (PWABuilder)</span>
+          <div className="bg-slate-950 border border-indigo-500/30 rounded-2xl p-3.5 space-y-3">
+            <div className="font-bold text-xs text-indigo-300 flex items-center justify-between">
+              <div className="flex items-center gap-1.5">
+                <Smartphone className="w-4 h-4 text-indigo-400" />
+                <span>PWA Manifest & PWABuilder Guide</span>
+              </div>
+              <span className="text-[10px] bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full font-mono border border-indigo-500/30">
+                Play Store Ready
+              </span>
             </div>
-            <p className="text-[11px] text-slate-400">
-              PWABuilder can use this Web Manifest to package SplitMate into an Android APK / Google Play Store App.
+
+            <p className="text-[11px] text-slate-400 leading-relaxed">
+              Because AI Studio links are protected by an interactive auth cookie, PWABuilder will display a <strong className="text-amber-400">"Missing Name"</strong> timeout notice. Follow these 3 simple visual steps to add the manifest in 10 seconds:
             </p>
-            <div className="flex gap-2 pt-1">
+
+            {/* Visual Step-by-Step Diagrams */}
+            <div className="space-y-2 pt-1">
+              {/* Step 1 Visual Card */}
+              <div className="p-2.5 bg-slate-900/90 rounded-xl border border-slate-800 text-[11px] space-y-1.5">
+                <div className="flex items-center gap-2 font-bold text-slate-200">
+                  <span className="w-5 h-5 rounded-full bg-indigo-600 text-white text-[10px] flex items-center justify-center shrink-0">1</span>
+                  <span>Click "Edit Your Manifest" on PWABuilder</span>
+                </div>
+                {/* SVG Illustration Mockup of PWABuilder screen */}
+                <div className="bg-slate-950 p-2 rounded-lg border border-slate-800 text-[10px] font-mono text-slate-400 space-y-1">
+                  <div className="flex items-center justify-between bg-slate-900 px-2 py-1 rounded">
+                    <span className="text-amber-400 flex items-center gap-1">⚠️ Missing Name</span>
+                    <span className="bg-indigo-600 text-white px-2 py-0.5 rounded text-[9px] font-sans font-bold shadow animate-pulse">
+                      Edit Your Manifest ↗
+                    </span>
+                  </div>
+                  <div className="text-[9px] text-slate-500 italic">Click the blue button in the bottom right popover or manifest card.</div>
+                </div>
+              </div>
+
+              {/* Step 2 Visual Card */}
+              <div className="p-2.5 bg-slate-900/90 rounded-xl border border-slate-800 text-[11px] space-y-1.5">
+                <div className="flex items-center gap-2 font-bold text-slate-200">
+                  <span className="w-5 h-5 rounded-full bg-indigo-600 text-white text-[10px] flex items-center justify-center shrink-0">2</span>
+                  <span>Paste Manifest JSON or Fill Fields</span>
+                </div>
+                <div className="bg-slate-950 p-2 rounded-lg border border-slate-800 text-[10px] space-y-1.5">
+                  <div className="grid grid-cols-2 gap-1 text-[9px]">
+                    <div className="bg-slate-900 p-1.5 rounded border border-slate-800">
+                      <div className="text-slate-500 font-mono text-[8px]">NAME</div>
+                      <div className="text-emerald-400 font-medium truncate">SplitMate Pro</div>
+                    </div>
+                    <div className="bg-slate-900 p-1.5 rounded border border-slate-800">
+                      <div className="text-slate-500 font-mono text-[8px]">SHORT NAME</div>
+                      <div className="text-emerald-400 font-medium truncate">SplitMate</div>
+                    </div>
+                  </div>
+                  <div className="bg-slate-900 p-1.5 rounded border border-slate-800 text-[9px]">
+                    <div className="text-slate-500 font-mono text-[8px]">DESCRIPTION</div>
+                    <div className="text-emerald-400 font-medium truncate">Multi-currency travel expense splitter</div>
+                  </div>
+                  {/* Icons breakdown */}
+                  <div className="bg-slate-900 p-1.5 rounded border border-slate-800 text-[9px] space-y-1">
+                    <div className="text-slate-500 font-mono text-[8px] flex justify-between items-center">
+                      <span>PWA ICONS (AUTOMATICALLY INCLUDED IN MANIFEST)</span>
+                      <span className="text-indigo-400">4 Assets</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-1 text-[8px] text-slate-300">
+                      <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded">
+                        <img src="/icon-192.png" alt="192" className="w-3.5 h-3.5 rounded" />
+                        <span>192x192 PNG</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded">
+                        <img src="/icon-512.png" alt="512" className="w-3.5 h-3.5 rounded" />
+                        <span>512x512 PNG</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded">
+                        <img src="/maskable-icon-512.png" alt="maskable" className="w-3.5 h-3.5 rounded" />
+                        <span>512x512 Maskable</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 bg-slate-950 p-1 rounded">
+                        <img src="/icon.svg" alt="svg" className="w-3.5 h-3.5 rounded" />
+                        <span>Vector SVG</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Step 3 Visual Card */}
+              <div className="p-2.5 bg-slate-900/90 rounded-xl border border-slate-800 text-[11px] space-y-1.5">
+                <div className="flex items-center gap-2 font-bold text-slate-200">
+                  <span className="w-5 h-5 rounded-full bg-indigo-600 text-white text-[10px] flex items-center justify-center shrink-0">3</span>
+                  <span>Save & Click "Package For Stores"</span>
+                </div>
+                <div className="bg-slate-950 p-2 rounded-lg border border-slate-800 text-[10px] flex items-center justify-between">
+                  <span className="text-slate-400">Status: <span className="text-emerald-400 font-bold">Manifest Ready ✓</span></span>
+                  <span className="bg-emerald-600 text-white px-2 py-0.5 rounded text-[9px] font-bold">Package APK / Store</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-2 pt-1">
               <button
                 onClick={() => {
                   const manifestObj = {
@@ -157,20 +246,32 @@ export const ExportShareModal: React.FC<ExportShareModalProps> = ({
                   navigator.clipboard.writeText(JSON.stringify(manifestObj, null, 2));
                   alert('Manifest JSON copied to clipboard!');
                 }}
-                className="flex-1 bg-indigo-900/50 hover:bg-indigo-800/80 text-indigo-200 font-medium py-1.5 rounded-xl text-[11px] border border-indigo-500/40 flex items-center justify-center gap-1"
+                className="flex-1 bg-indigo-900/50 hover:bg-indigo-800/80 text-indigo-200 font-medium py-2 px-3 rounded-xl text-[11px] border border-indigo-500/40 flex items-center justify-center gap-1.5 transition-colors"
               >
-                <Copy className="w-3 h-3" />
+                <Copy className="w-3.5 h-3.5 text-indigo-400" />
                 <span>Copy Manifest JSON</span>
               </button>
+
+              <a
+                href="/icon-512.png"
+                download="icon-512.png"
+                target="_blank"
+                rel="noreferrer"
+                className="flex-1 bg-purple-900/50 hover:bg-purple-800/80 text-purple-200 font-medium py-2 px-3 rounded-xl text-[11px] border border-purple-500/40 flex items-center justify-center gap-1.5 transition-colors"
+              >
+                <Download className="w-3.5 h-3.5 text-purple-300" />
+                <span>Download 512x512 Icon</span>
+              </a>
+
               <a
                 href="/manifest.json"
                 download="manifest.json"
                 target="_blank"
                 rel="noreferrer"
-                className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-1.5 rounded-xl text-[11px] flex items-center justify-center gap-1 shadow-sm"
+                className="flex-1 bg-indigo-600 hover:bg-indigo-500 text-white font-medium py-2 px-3 rounded-xl text-[11px] flex items-center justify-center gap-1.5 shadow-md shadow-indigo-600/20 transition-colors"
               >
-                <Download className="w-3 h-3" />
-                <span>Download manifest.json</span>
+                <Download className="w-3.5 h-3.5" />
+                <span>manifest.json</span>
               </a>
             </div>
           </div>
