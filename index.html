@@ -10,13 +10,11 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="SplitMate Pro" />
     
-    <!-- Inlined Web App Manifest for PWABuilder & Cloud Run Scrapers -->
-    <link id="pwa-manifest" rel="manifest" href="data:application/manifest+json;base64,eyJpZCI6Ii8iLCJzaG9ydF9uYW1lIjoiU3BsaXRNYXRlIiwibmFtZSI6IlNwbGl0TWF0ZSBQcm8gLSBNdWx0aS1DdXJyZW5jeSBFeHBlbnNlIFNwbGl0dGVyIiwiZGVzY3JpcHRpb24iOiJNdWx0aS1jdXJyZW5jeSB0cmF2ZWwgZXhwZW5zZSBzcGxpdHRlciBhbmQgcmVjZWlwdCBzY2FubmVyIHdpdGggb2ZmbGluZS1maXJzdCBncmVlZHkgbWluaW11bSBjYXNoIGZsb3cgbWF0aC4iLCJpY29ucyI6W3sic3JjIjoiL2ljb24tMTkyLnBuZyIsInNpemVzIjoiMTkyeDE5MiIsInR5cGUiOiJpbWFnZS9wbmciLCJwdXJwb3NlIjoiYW55In0seyJzcmMiOiIvaWNvbi01MTIucG5nIiwic2l6ZXMiOiI1MTJ4NTEyIiwidHlwZSI6ImltYWdlL3BuZyIsInB1cnBvc2UiOiJhbnkifSx7InNyYyI6Ii9tYXNrYWJsZS1pY29uLTUxMi5wbmciLCJzaXplcyI6IjUxMng1MTIiLCJ0eXBlIjoiaW1hZ2UvcG5nIiwicHVycG33c2UiOiJtYXNrYWJsZSJ9LHsic3JjIjoiL2ljb24uc3ZnIiwic2l6ZXMiOiI1MTJ4NTEyIiwidHlwZSI6ImltYWdlL3N2Zyt4bWwiLCJwdXJwb3NlIjoiYW55In1dLCJzdGFydF91cmwiOiIvIiwic2NvcGUiOiIvIiwiYmFja2dyb3VuZF9jb2xvciI6IiMwZjE3MmEiLCJ0aGVtZV9jb2xvciI6IiM0ZjQ2ZTUiLCJkaXNwbGF5Ijoic3RhbmRhbG9uZSIsImRpc3BsYXlfb3ZlcnJpZGUiOjpbInN0YW5kYWxvbmUiLCJtaW5pbWFsLXVpIiwicnJvd3NlciJdLCJvcmllbnRhdGlvbiI6InBvcnRyYWl0IiwiZGlyIjoibHRyIiwibGFuZyI6ImVuLVVTIiwiY2F0ZWdvcmllcyI6WyJmaW5hbmNlIiwidHJhdmVsIiwidXRpbGl0aWVzIl0sInByZWZlcl9yZWxhdGVkX2FwcGxpY2F0aW9ucyI6ZmFsc2UsInNob3J0Y3V0cyI6W3sibmFtZSI6IkFkZCBFeHBlbnNlIiwic2hvcnRfbmFtZSI6IkFkZCIsImRlc2NyaXB0aW9uIjoiUXVpY2tseSBsb2cgYSBuZXcgZXhwZW5zZSIsInVybCI6Ii8/YWN0aW9uPXZvaWNlLWV4cGVuc2UiLCJpY29ucyI6W3sic3JjIjoiL2ljb24tMTkyLnBuZyIsInNpemVzIjoiMTkyeDE5MiJ9XX1dfQ==" />
-    <link rel="alternate" type="application/manifest+json" href="/manifest.json" />
-    <link rel="alternate" type="application/manifest+json" href="/manifest.webmanifest" />
-    <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
-    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- Standard Web App Manifest -->
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png" />
+    <link rel="icon" type="image/svg+xml" href="icon.svg" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
     
     <title>SplitMate Pro - Expense Splitter</title>
   </head>
@@ -24,17 +22,9 @@
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script>
-      // Dynamically attach standard manifest link tag as well
-      try {
-        const link = document.createElement('link');
-        link.rel = 'manifest';
-        link.href = window.location.origin + '/manifest.json';
-        document.head.appendChild(link);
-      } catch(e) {}
-
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js').catch((err) => {
+          navigator.serviceWorker.register('sw.js').catch((err) => {
             console.log('SW registration issue:', err);
           });
         });
