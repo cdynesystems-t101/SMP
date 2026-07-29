@@ -1,0 +1,6 @@
+{
+  "name": "SplitMate Pro - Multi-Currency Expense Splitter",
+  "description": "Mobile bill-splitting application for groups up to 20 users with multi-currency support, custom exchange rates, offline debt simplification, and AI receipt scanning.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
