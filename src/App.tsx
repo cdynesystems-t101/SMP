@@ -202,6 +202,7 @@ export default function App() {
             onOpenMembers={() => setIsMembersModalOpen(true)}
             onSelectExpense={(exp) => setSelectedExpenseDetail(exp)}
             onNavigateTab={(tab) => setActiveTab(tab)}
+            onOpenShareModal={() => setIsShareModalOpen(true)}
           />
         )}
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { Expense, Group, Member, Settlement } from '../types';
 import { calculateGroupBalances } from '../utils/splitMath';
 import { getCurrencyDetails } from '../data/currencies';
-import { Plus, Camera, Scale, ArrowRightLeft, TrendingUp, TrendingDown, Users, ChevronRight, ShieldCheck, Mic, Sparkles } from 'lucide-react';
+import { Plus, Camera, Scale, ArrowRightLeft, TrendingUp, TrendingDown, Users, ChevronRight, ShieldCheck, Mic, Sparkles, Share2 } from 'lucide-react';
 
 interface DashboardTabProps {
   group: Group;
@@ -15,6 +15,7 @@ interface DashboardTabProps {
   onOpenMembers: () => void;
   onSelectExpense: (expense: Expense) => void;
   onNavigateTab: (tab: 'expenses' | 'balances') => void;
+  onOpenShareModal?: () => void;
 }
 
 export const DashboardTab: React.FC<DashboardTabProps> = ({
@@ -28,6 +29,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
   onOpenMembers,
   onSelectExpense,
   onNavigateTab,
+  onOpenShareModal,
 }) => {
   const baseCurrencyObj = getCurrencyDetails(group.baseCurrency);
   const memberBalances = calculateGroupBalances(group, expenses, settlements);
@@ -57,9 +59,21 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
             <span className="text-base">{group.icon || '✈️'}</span>
             <span>{group.name} Total</span>
           </span>
-          <span className="bg-indigo-950 border border-indigo-700/50 px-2 py-0.5 rounded-full text-[10px] text-indigo-300 font-semibold">
-            {baseCurrencyObj.flag} Base: {group.baseCurrency}
-          </span>
+          <div className="flex items-center gap-1.5">
+            {onOpenShareModal && (
+              <button
+                onClick={onOpenShareModal}
+                className="bg-indigo-600/40 hover:bg-indigo-600/80 border border-indigo-400/40 px-2 py-0.5 rounded-full text-[10px] text-indigo-100 font-semibold flex items-center gap-1 transition-colors shadow-sm"
+                title="Share or Export PWA / Store manifest"
+              >
+                <Share2 className="w-3 h-3 text-indigo-200" />
+                <span>Share / Export</span>
+              </button>
+            )}
+            <span className="bg-indigo-950 border border-indigo-700/50 px-2 py-0.5 rounded-full text-[10px] text-indigo-300 font-semibold">
+              {baseCurrencyObj.flag} Base: {group.baseCurrency}
+            </span>
+          </div>
         </div>
 
         <div className="text-2xl font-black text-white tracking-tight mb-4">

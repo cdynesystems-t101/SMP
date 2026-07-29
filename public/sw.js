@@ -1,13 +1,12 @@
 const CACHE_NAME = 'splitmate-v2';
 const ASSETS = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/manifest.webmanifest',
-  '/icon-192.png',
-  '/icon-512.png',
-  '/maskable-icon-512.png',
-  '/icon.svg'
+  './',
+  './index.html',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png',
+  './maskable-icon-512.png',
+  './icon.svg'
 ];
 
 self.addEventListener('install', (event) => {
