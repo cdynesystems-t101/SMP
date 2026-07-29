@@ -250,7 +250,11 @@ export default function App() {
       </div>
 
       {/* Bottom Navigation Bar */}
-      <BottomNav activeTab={activeTab} setActiveTab={(tab) => setActiveTab(tab)} />
+      <BottomNav
+        activeTab={activeTab}
+        setActiveTab={(tab) => setActiveTab(tab)}
+        onOpenVoiceExpense={() => setIsVoiceModalOpen(true)}
+      />
 
       {/* Modals */}
       {isAddExpenseOpen && (

@@ -1,37 +1,41 @@
 import React from 'react';
-import { LayoutDashboard, Receipt, Camera, Scale, Globe } from 'lucide-react';
+import { LayoutDashboard, Receipt, Camera, Scale, Globe, Mic, Sparkles } from 'lucide-react';
 
 export type TabType = 'dashboard' | 'expenses' | 'scan' | 'balances' | 'rates';
 
 interface BottomNavProps {
   activeTab: TabType;
   setActiveTab: (tab: TabType) => void;
+  onOpenVoiceExpense?: () => void;
   pendingExpenseCount?: number;
 }
 
 export const BottomNav: React.FC<BottomNavProps> = ({
   activeTab,
   setActiveTab,
+  onOpenVoiceExpense,
   pendingExpenseCount = 0,
 }) => {
   return (
-    <div className="w-full bg-slate-950/95 backdrop-blur-md border-t border-slate-800 px-2 py-2 flex items-center justify-around text-slate-400 shrink-0 z-30 shadow-2xl">
+    <div className="w-full bg-slate-950/95 backdrop-blur-md border-t border-slate-800/80 px-2 py-1.5 flex items-center justify-around text-slate-400 shrink-0 z-30 shadow-2xl relative">
+      {/* Overview */}
       <button
         onClick={() => setActiveTab('dashboard')}
-        className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all relative ${
+        className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all relative ${
           activeTab === 'dashboard' ? 'text-indigo-400 font-semibold' : 'hover:text-slate-200'
         }`}
       >
         <LayoutDashboard className="w-5 h-5 mb-0.5" />
         <span className="text-[10px] tracking-tight">Overview</span>
         {activeTab === 'dashboard' && (
-          <span className="absolute bottom-0 w-8 h-0.5 bg-indigo-500 rounded-full" />
+          <span className="absolute bottom-0 w-7 h-0.5 bg-indigo-500 rounded-full" />
         )}
       </button>
 
+      {/* Expenses */}
       <button
         onClick={() => setActiveTab('expenses')}
-        className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all relative ${
+        className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all relative ${
           activeTab === 'expenses' ? 'text-indigo-400 font-semibold' : 'hover:text-slate-200'
         }`}
       >
@@ -45,44 +49,76 @@ export const BottomNav: React.FC<BottomNavProps> = ({
         </div>
         <span className="text-[10px] tracking-tight">Expenses</span>
         {activeTab === 'expenses' && (
-          <span className="absolute bottom-0 w-8 h-0.5 bg-indigo-500 rounded-full" />
+          <span className="absolute bottom-0 w-7 h-0.5 bg-indigo-500 rounded-full" />
         )}
       </button>
 
-      {/* Main AI Receipt Scanner Button */}
+      {/* CENTRAL UX ICON: AI Voice Input Button */}
+      <div className="relative flex flex-col items-center justify-center -mt-6">
+        <button
+          onClick={() => {
+            if (onOpenVoiceExpense) {
+              onOpenVoiceExpense();
+            }
+          }}
+          className="relative group p-3.5 rounded-full bg-gradient-to-tr from-purple-600 via-indigo-600 to-violet-500 text-white shadow-xl shadow-purple-600/35 ring-4 ring-slate-950 transition-all hover:scale-110 active:scale-95 flex items-center justify-center"
+          title="Speak to Log Expense with AI Voice"
+        >
+          {/* Subtle pulse aura */}
+          <span className="absolute inset-0 rounded-full bg-purple-500/30 animate-ping pointer-events-none" />
+          
+          <Mic className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
+          
+          {/* AI Badge */}
+          <span className="absolute -top-1 -right-1 bg-amber-400 text-slate-950 text-[8px] font-black px-1.5 py-0.5 rounded-full shadow border border-slate-950 flex items-center gap-0.5">
+            <Sparkles className="w-2 h-2 fill-slate-950" />
+            <span>AI</span>
+          </span>
+        </button>
+        <span className="text-[9px] font-bold text-purple-300 mt-1 tracking-tight flex items-center gap-0.5">
+          <span>Voice</span>
+        </span>
+      </div>
+
+      {/* AI Scan Receipt */}
       <button
         onClick={() => setActiveTab('scan')}
-        className={`flex flex-col items-center justify-center -mt-5 p-3.5 rounded-full bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-500 text-white shadow-lg shadow-indigo-500/30 ring-4 ring-slate-900 transition-all hover:scale-105 active:scale-95 ${
-          activeTab === 'scan' ? 'ring-indigo-400/50 scale-105' : ''
+        className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all relative ${
+          activeTab === 'scan' ? 'text-indigo-400 font-semibold' : 'hover:text-slate-200'
         }`}
-        title="Scan Bill / Receipt with AI"
       >
-        <Camera className="w-6 h-6" />
+        <Camera className="w-5 h-5 mb-0.5" />
+        <span className="text-[10px] tracking-tight">AI Scan</span>
+        {activeTab === 'scan' && (
+          <span className="absolute bottom-0 w-7 h-0.5 bg-indigo-500 rounded-full" />
+        )}
       </button>
 
+      {/* Balances */}
       <button
         onClick={() => setActiveTab('balances')}
-        className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all relative ${
+        className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all relative ${
           activeTab === 'balances' ? 'text-indigo-400 font-semibold' : 'hover:text-slate-200'
         }`}
       >
         <Scale className="w-5 h-5 mb-0.5" />
         <span className="text-[10px] tracking-tight">Balances</span>
         {activeTab === 'balances' && (
-          <span className="absolute bottom-0 w-8 h-0.5 bg-indigo-500 rounded-full" />
+          <span className="absolute bottom-0 w-7 h-0.5 bg-indigo-500 rounded-full" />
         )}
       </button>
 
+      {/* Rates */}
       <button
         onClick={() => setActiveTab('rates')}
-        className={`flex flex-col items-center justify-center py-1 px-3 rounded-xl transition-all relative ${
+        className={`flex flex-col items-center justify-center py-1 px-2.5 rounded-xl transition-all relative ${
           activeTab === 'rates' ? 'text-indigo-400 font-semibold' : 'hover:text-slate-200'
         }`}
       >
         <Globe className="w-5 h-5 mb-0.5" />
         <span className="text-[10px] tracking-tight">Rates</span>
         {activeTab === 'rates' && (
-          <span className="absolute bottom-0 w-8 h-0.5 bg-indigo-500 rounded-full" />
+          <span className="absolute bottom-0 w-7 h-0.5 bg-indigo-500 rounded-full" />
         )}
       </button>
     </div>
