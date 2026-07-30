@@ -5,8 +5,8 @@ const iconSvg = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#4f46e5"/>
-      <stop offset="100%" stop-color="#06b6d4"/>
+      <stop offset="0%" stop-color="#047857"/>
+      <stop offset="100%" stop-color="#10b981"/>
     </linearGradient>
     <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
       <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000" flood-opacity="0.25"/>
@@ -15,17 +15,20 @@ const iconSvg = `
   
   <rect width="512" height="512" rx="112" fill="url(#bg)"/>
   
-  <g transform="translate(256, 240)" filter="url(#shadow)">
-    <!-- Split Circle Icon -->
-    <circle cx="-60" cy="-40" r="50" fill="#ffffff" opacity="0.95"/>
-    <circle cx="60" cy="-40" r="50" fill="#ffffff" opacity="0.95"/>
-    <circle cx="0" cy="65" r="50" fill="#ffffff" opacity="0.95"/>
+  <g transform="translate(256, 235)" filter="url(#shadow)">
+    <!-- Split Circle Network Nodes -->
+    <circle cx="-68" cy="-45" r="48" fill="#ffffff" opacity="0.95"/>
+    <circle cx="68" cy="-45" r="48" fill="#ffffff" opacity="0.95"/>
+    <circle cx="0" cy="72" r="48" fill="#ffffff" opacity="0.95"/>
     
     <!-- Connector Lines -->
-    <path d="M-60 -40 L60 -40 L0 65 Z" fill="none" stroke="#ffffff" stroke-width="18" stroke-linejoin="round" stroke-linecap="round" opacity="0.8"/>
+    <path d="M-68 -45 L68 -45 L0 72 Z" fill="none" stroke="#ffffff" stroke-width="18" stroke-linejoin="round" stroke-linecap="round" opacity="0.85"/>
     
-    <!-- Currency Dollar Sign Center -->
-    <text x="0" y="12" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="76" fill="#4f46e5" text-anchor="middle" dominant-baseline="middle">$</text>
+    <!-- Large Central White Badge for Dollar Symbol -->
+    <circle cx="0" cy="10" r="68" fill="#ffffff"/>
+
+    <!-- Prominent Currency Dollar Sign -->
+    <text x="0" y="15" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="115" fill="#047857" text-anchor="middle" dominant-baseline="middle">$</text>
   </g>
   <text x="256" y="445" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800" font-size="44" fill="#ffffff" text-anchor="middle" letter-spacing="2">SPLITMATE</text>
 </svg>
@@ -35,20 +38,21 @@ const maskableSvg = `
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
     <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#4f46e5"/>
-      <stop offset="100%" stop-color="#06b6d4"/>
+      <stop offset="0%" stop-color="#047857"/>
+      <stop offset="100%" stop-color="#10b981"/>
     </linearGradient>
   </defs>
   
   <!-- Full bleed square for maskable icon safe area -->
   <rect width="512" height="512" fill="url(#bg)"/>
   
-  <g transform="translate(256, 230)">
-    <circle cx="-50" cy="-35" r="42" fill="#ffffff" opacity="0.95"/>
-    <circle cx="50" cy="-35" r="42" fill="#ffffff" opacity="0.95"/>
-    <circle cx="0" cy="55" r="42" fill="#ffffff" opacity="0.95"/>
-    <path d="M-50 -35 L50 -35 L0 55 Z" fill="none" stroke="#ffffff" stroke-width="14" stroke-linejoin="round" stroke-linecap="round" opacity="0.8"/>
-    <text x="0" y="10" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="64" fill="#4f46e5" text-anchor="middle" dominant-baseline="middle">$</text>
+  <g transform="translate(256, 220)">
+    <circle cx="-58" cy="-38" r="42" fill="#ffffff" opacity="0.95"/>
+    <circle cx="58" cy="-38" r="42" fill="#ffffff" opacity="0.95"/>
+    <circle cx="0" cy="62" r="42" fill="#ffffff" opacity="0.95"/>
+    <path d="M-58 -38 L58 -38 L0 62 Z" fill="none" stroke="#ffffff" stroke-width="16" stroke-linejoin="round" stroke-linecap="round" opacity="0.85"/>
+    <circle cx="0" cy="10" r="58" fill="#ffffff"/>
+    <text x="0" y="14" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="900" font-size="98" fill="#047857" text-anchor="middle" dominant-baseline="middle">$</text>
   </g>
   <text x="256" y="410" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-weight="800" font-size="38" fill="#ffffff" text-anchor="middle" letter-spacing="2">SPLITMATE</text>
 </svg>
