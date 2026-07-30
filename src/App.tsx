@@ -63,17 +63,46 @@ export default function App() {
   useEffect(() => {
     initServiceWorker();
 
-    // Handle incoming Share Target or Shortcut URL parameters
+    // Handle incoming Share Target, Shortcuts, or Protocol Handler URL parameters
     const params = new URLSearchParams(window.location.search);
     const action = params.get('action');
     const sharedTitle = params.get('title');
     const sharedText = params.get('text');
     const sharedUrl = params.get('url');
+    const protocolParam = params.get('protocol');
 
     if (action === 'add-expense' || sharedTitle || sharedText || sharedUrl) {
       setIsAddExpenseOpen(true);
-    } else if (action === 'voice-expense') {
+    } else if (action === 'voice-expense' || (protocolParam && protocolParam.includes('voice'))) {
       setIsVoiceExpenseOpen(true);
+    } else if (protocolParam && (protocolParam.includes('scan') || protocolParam.includes('receipt'))) {
+      setIsScanReceiptOpen(true);
+    } else if (protocolParam) {
+      setIsAddExpenseOpen(true);
+    }
+
+    // Handle File Handlers launch queue (PWA File Handling API)
+    if ('launchQueue' in window && 'setConsumer' in (window as any).launchQueue) {
+      (window as any).launchQueue.setConsumer(async (launchParams: any) => {
+        if (launchParams.files && launchParams.files.length > 0) {
+          for (const fileHandle of launchParams.files) {
+            const file = await fileHandle.getFile();
+            if (file.type === 'application/json' || file.name.endsWith('.json')) {
+              try {
+                const text = await file.text();
+                const data = JSON.parse(text);
+                if (Array.isArray(data)) {
+                  setExpenses((prev) => [...data, ...prev]);
+                }
+              } catch (e) {
+                console.error('Error parsing opened JSON file:', e);
+              }
+            } else {
+              setIsScanReceiptOpen(true);
+            }
+          }
+        }
+      });
     }
   }, []);
 
