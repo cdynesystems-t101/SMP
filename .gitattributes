@@ -1,0 +1,13 @@
+# Ensure Git treats binary images correctly without text line-ending conversions
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.svg text eol=lf
+*.json text eol=lf
+*.webmanifest text eol=lf
+*.js text eol=lf
+*.css text eol=lf
+*.html text eol=lf
