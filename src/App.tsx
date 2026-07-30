@@ -62,6 +62,19 @@ export default function App() {
   // Initialize Service Worker with Background Sync support
   useEffect(() => {
     initServiceWorker();
+
+    // Handle incoming Share Target or Shortcut URL parameters
+    const params = new URLSearchParams(window.location.search);
+    const action = params.get('action');
+    const sharedTitle = params.get('title');
+    const sharedText = params.get('text');
+    const sharedUrl = params.get('url');
+
+    if (action === 'add-expense' || sharedTitle || sharedText || sharedUrl) {
+      setIsAddExpenseOpen(true);
+    } else if (action === 'voice-expense') {
+      setIsVoiceExpenseOpen(true);
+    }
   }, []);
 
   // Sync to LocalStorage
