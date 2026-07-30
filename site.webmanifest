@@ -46,6 +46,22 @@
   "lang": "en-US",
   "categories": ["finance", "travel", "utilities"],
   "prefer_related_applications": false,
+  "screenshots": [
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "SplitMate Pro Dashboard"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "SplitMate Pro Mobile App"
+    }
+  ],
   "shortcuts": [
     {
       "name": "Add Expense",
