@@ -166,3 +166,64 @@ self.addEventListener('message', (event) => {
     event.waitUntil(processBackgroundSync(tag));
   }
 });
+
+// ==========================================
+// WEB PUSH NOTIFICATIONS API EVENT LISTENERS
+// ==========================================
+self.addEventListener('push', (event) => {
+  console.log('[SW Event] Push notification received');
+  let data = {
+    title: 'SplitMate Notification',
+    body: 'You have new activity or expense updates in SplitMate!',
+    icon: './icon-192.png',
+    badge: './icon-192.png',
+    data: { url: './' }
+  };
+
+  if (event.data) {
+    try {
+      const payload = event.data.json();
+      data = { ...data, ...payload };
+    } catch (e) {
+      data.body = event.data.text();
+    }
+  }
+
+  const options = {
+    body: data.body,
+    icon: data.icon || './icon-192.png',
+    badge: data.badge || './icon-192.png',
+    vibrate: [100, 50, 100],
+    data: data.data || { url: './' },
+    actions: [
+      { action: 'open', title: 'Open SplitMate' },
+      { action: 'close', title: 'Dismiss' }
+    ]
+  };
+
+  event.waitUntil(
+    self.registration.showNotification(data.title, options)
+  );
+});
+
+self.addEventListener('notificationclick', (event) => {
+  console.log('[SW Event] Notification clicked with action:', event.action);
+  event.notification.close();
+
+  if (event.action === 'close') return;
+
+  const targetUrl = (event.notification.data && event.notification.data.url) ? event.notification.data.url : './';
+
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
+      for (const client of clientList) {
+        if (client.url && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      if (self.clients.openWindow) {
+        return self.clients.openWindow(targetUrl);
+      }
+    })
+  );
+});
