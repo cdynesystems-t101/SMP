@@ -214,10 +214,10 @@
   },
   "scope_extensions": [
     {
-      "origin": "cdynesystems-t101.github.io"
+      "origin": "https://cdynesystems-t101.github.io"
     },
     {
-      "origin": "*.github.io"
+      "origin": "https://*.github.io"
     }
   ]
 }
