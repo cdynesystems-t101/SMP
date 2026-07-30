@@ -1,0 +1,43 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.5",
+  "body": [
+    {
+      "type": "TextBlock",
+      "text": "SplitMate - Expense Tracker",
+      "weight": "Bolder",
+      "size": "Medium",
+      "color": "Accent"
+    },
+    {
+      "type": "FactSet",
+      "facts": [
+        {
+          "title": "Active Group:",
+          "value": "${groupName}"
+        },
+        {
+          "title": "Your Net Balance:",
+          "value": "${userBalance}"
+        },
+        {
+          "title": "Offline Sync Queue:",
+          "value": "${pendingSyncCount}"
+        }
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "+ Quick Add Expense",
+      "url": "./?action=add-expense"
+    },
+    {
+      "type": "Action.OpenUrl",
+      "title": "Open App",
+      "url": "./"
+    }
+  ]
+}

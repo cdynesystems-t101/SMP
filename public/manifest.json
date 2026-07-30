@@ -131,5 +131,32 @@
       "text": "text",
       "url": "url"
     }
-  }
+  },
+  "widgets": [
+    {
+      "name": "SplitMate Expense Widget",
+      "short_name": "SplitMate",
+      "description": "View group balances and quick log expenses directly from desktop widgets.",
+      "tag": "splitmate-expenses",
+      "template": "expense-widget",
+      "ms_ac_template": "widgets/expense-widget.json",
+      "data": "widgets/expense-data.json",
+      "type": "application/json",
+      "screenshots": [
+        {
+          "src": "screenshot-narrow.png",
+          "sizes": "540x720",
+          "label": "SplitMate Widget Preview"
+        }
+      ],
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ],
+      "auth": false
+    }
+  ]
 }
