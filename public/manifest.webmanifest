@@ -46,17 +46,19 @@
   "lang": "en-US",
   "categories": ["finance", "travel", "utilities"],
   "prefer_related_applications": false,
+  "related_applications": [],
+  "iarc_rating_id": "e84b335a-70f4-4da9-a03d-246261d7638d",
   "screenshots": [
     {
-      "src": "icon-512.png",
-      "sizes": "512x512",
+      "src": "screenshot-wide.png",
+      "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
       "label": "SplitMate Pro Dashboard"
     },
     {
-      "src": "icon-512.png",
-      "sizes": "512x512",
+      "src": "screenshot-narrow.png",
+      "sizes": "750x1334",
       "type": "image/png",
       "form_factor": "narrow",
       "label": "SplitMate Pro Mobile App"

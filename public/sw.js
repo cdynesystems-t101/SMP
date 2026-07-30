@@ -40,6 +40,6 @@ self.addEventListener('fetch', (event) => {
         }
         return response;
       })
-      .catch(() => caches.match(event.request).then((res) => res || caches.match('/')))
+      .catch(() => caches.match(event.request).then((res) => res || caches.match('./') || caches.match('./index.html')))
   );
 });
