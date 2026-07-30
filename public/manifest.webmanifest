@@ -46,7 +46,18 @@
   "lang": "en-US",
   "categories": ["finance", "travel", "utilities"],
   "prefer_related_applications": false,
-  "related_applications": [],
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.splitmate.app",
+      "id": "com.splitmate.app"
+    }
+  ],
+  "scope_extensions": [
+    {
+      "origin": "*.github.io"
+    }
+  ],
   "iarc_rating_id": "e84b335a-70f4-4da9-a03d-246261d7638d",
   "screenshots": [
     {
