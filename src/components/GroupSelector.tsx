@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Group } from '../types';
-import { ChevronDown, Plus, Users, Share2, WifiOff } from 'lucide-react';
+import { ChevronDown, Plus, Users, Share2 } from 'lucide-react';
 import { getCurrencyDetails } from '../data/currencies';
 
 interface GroupSelectorProps {
@@ -106,27 +106,23 @@ export const GroupSelector: React.FC<GroupSelectorProps> = ({
       <div className="flex items-center gap-1.5">
         <button
           onClick={onOpenMembersModal}
-          className="p-2 bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 rounded-xl text-slate-300 hover:text-white transition-all relative"
-          title="Manage Members (Up to 20)"
+          className="flex items-center gap-2 px-3 py-1.5 bg-indigo-950/80 hover:bg-indigo-900/90 border border-indigo-500/40 rounded-xl text-indigo-200 hover:text-white transition-all shadow-sm group"
+          title="Manage Members"
         >
-          <Users className="w-4 h-4 text-indigo-400" />
-          <span className="absolute -top-1 -right-1 bg-indigo-500 text-white text-[9px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+          <Users className="w-4 h-4 text-indigo-400 group-hover:scale-105 transition-transform" />
+          <span className="text-xs font-semibold">Members</span>
+          <span className="bg-indigo-500 text-white text-[10px] font-bold rounded-full px-1.5 py-0.5 min-w-[18px] text-center leading-none">
             {activeGroup.members.length}
           </span>
         </button>
 
         <button
           onClick={onOpenShareModal}
-          className="p-2 bg-slate-800/80 hover:bg-slate-800 border border-slate-700/60 rounded-xl text-slate-300 hover:text-white transition-all"
+          className="p-1.5 bg-slate-800/60 hover:bg-slate-800 border border-slate-700/50 rounded-lg text-slate-400 hover:text-slate-200 transition-all shrink-0"
           title="Share / Export Group Summary"
         >
-          <Share2 className="w-4 h-4 text-slate-300" />
+          <Share2 className="w-3.5 h-3.5" />
         </button>
-
-        <div className="hidden sm:flex items-center gap-1 px-2 py-1 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-lg text-[10px] font-medium">
-          <WifiOff className="w-3 h-3" />
-          <span>Offline Math</span>
-        </div>
       </div>
     </div>
   );

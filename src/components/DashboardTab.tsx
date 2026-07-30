@@ -1,8 +1,20 @@
 import React from 'react';
-import { Expense, Group, Member, Settlement } from '../types';
+import { Expense, Group, Member, Settlement, ExpenseCategory } from '../types';
 import { calculateGroupBalances } from '../utils/splitMath';
 import { getCurrencyDetails } from '../data/currencies';
-import { Plus, Camera, Scale, ArrowRightLeft, TrendingUp, TrendingDown, Users, ChevronRight, ShieldCheck, Mic, Sparkles, Share2 } from 'lucide-react';
+import { Plus, Camera, ArrowRightLeft, TrendingUp, TrendingDown, Users, ChevronRight, ShieldCheck, Mic, Sparkles, Share2, PieChart as PieChartIcon } from 'lucide-react';
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
+
+const CATEGORY_CONFIG: Record<ExpenseCategory, { label: string; icon: string; color: string }> = {
+  dining: { label: 'Food & Dining', icon: '🍽️', color: '#F59E0B' },
+  transport: { label: 'Transport', icon: '🚄', color: '#3B82F6' },
+  accommodation: { label: 'Lodging', icon: '🏨', color: '#8B5CF6' },
+  groceries: { label: 'Groceries', icon: '🛒', color: '#10B981' },
+  entertainment: { label: 'Entertainment', icon: '🎟️', color: '#EC4899' },
+  shopping: { label: 'Shopping', icon: '🛍️', color: '#F43F5E' },
+  utilities: { label: 'Utilities', icon: '⚡', color: '#06B6D4' },
+  other: { label: 'Other', icon: '💳', color: '#64748B' },
+};
 
 interface DashboardTabProps {
   group: Group;
@@ -40,6 +52,30 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
 
   // Group Total Spent
   const groupTotalBase = expenses.reduce((sum, e) => sum + (e.baseAmount || 0), 0);
+
+  // Category breakdown for PieChart
+  const categoryData = React.useMemo(() => {
+    const totals: Record<string, number> = {};
+    expenses.forEach((e) => {
+      const cat = e.category || 'other';
+      totals[cat] = (totals[cat] || 0) + (e.baseAmount || 0);
+    });
+
+    return Object.entries(totals)
+      .filter(([_, val]) => val > 0)
+      .map(([catKey, value]) => {
+        const config = CATEGORY_CONFIG[catKey as ExpenseCategory] || CATEGORY_CONFIG.other;
+        return {
+          name: config.label,
+          categoryKey: catKey,
+          value: Math.round(value * 100) / 100,
+          color: config.color,
+          icon: config.icon,
+          percentage: groupTotalBase > 0 ? Math.round((value / groupTotalBase) * 100) : 0,
+        };
+      })
+      .sort((a, b) => b.value - a.value);
+  }, [expenses, groupTotalBase]);
 
   const formatAmount = (num: number) => {
     return `${baseCurrencyObj.symbol}${Math.abs(num).toLocaleString(undefined, {
@@ -119,26 +155,13 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
       </div>
 
       {/* Quick Action Grid */}
-      <div className="grid grid-cols-4 gap-2">
+      <div className="grid grid-cols-3 gap-2.5">
         <button
           onClick={onOpenAddExpense}
           className="bg-indigo-600 hover:bg-indigo-500 text-white p-3 rounded-2xl flex flex-col items-center justify-center gap-1 shadow-lg shadow-indigo-600/20 transition-all active:scale-95"
         >
           <Plus className="w-5 h-5" />
-          <span className="text-[10px] font-semibold text-center leading-tight">Add Expense</span>
-        </button>
-
-        <button
-          onClick={onOpenVoiceExpense}
-          className="bg-gradient-to-br from-purple-900/90 to-indigo-900/90 hover:from-purple-800 hover:to-indigo-800 border border-purple-500/40 text-purple-200 p-3 rounded-2xl flex flex-col items-center justify-center gap-1 shadow-md transition-all active:scale-95 relative"
-        >
-          <div className="relative">
-            <Mic className="w-5 h-5 text-purple-300" />
-            <span className="absolute -top-1 -right-2 bg-purple-500 text-white text-[8px] font-extrabold px-1 rounded-full animate-pulse">
-              AI
-            </span>
-          </div>
-          <span className="text-[10px] font-semibold text-center leading-tight">Voice Input</span>
+          <span className="text-xs font-semibold text-center leading-tight">Add Expense</span>
         </button>
 
         <button
@@ -146,7 +169,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
           className="bg-slate-800 hover:bg-slate-700/80 border border-indigo-500/30 text-indigo-300 p-3 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-95"
         >
           <Camera className="w-5 h-5 text-indigo-400" />
-          <span className="text-[10px] font-semibold text-center leading-tight">AI Scan Bill</span>
+          <span className="text-xs font-semibold text-center leading-tight">AI Scan Bill</span>
         </button>
 
         <button
@@ -154,7 +177,7 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
           className="bg-slate-800 hover:bg-slate-700/80 border border-emerald-500/30 text-emerald-300 p-3 rounded-2xl flex flex-col items-center justify-center gap-1 transition-all active:scale-95"
         >
           <ArrowRightLeft className="w-5 h-5 text-emerald-400" />
-          <span className="text-[10px] font-semibold text-center leading-tight">Settle Up</span>
+          <span className="text-xs font-semibold text-center leading-tight">Settle Up</span>
         </button>
       </div>
 
@@ -243,6 +266,89 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
           })}
         </div>
       </div>
+
+      {/* Expenses Breakdown by Category (Recharts Pie Chart) */}
+      {categoryData.length > 0 && (
+        <div className="bg-slate-900 border border-slate-800 rounded-3xl p-4 space-y-3 shadow-lg">
+          <div className="flex items-center justify-between">
+            <div className="text-xs font-bold text-slate-200 flex items-center gap-2">
+              <PieChartIcon className="w-4 h-4 text-purple-400" />
+              <span>Category Breakdown</span>
+            </div>
+            <span className="text-[10px] font-medium text-slate-400 bg-slate-800 px-2 py-0.5 rounded-full">
+              {categoryData.length} {categoryData.length === 1 ? 'Category' : 'Categories'}
+            </span>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center gap-4 pt-1">
+            {/* Recharts Pie Chart */}
+            <div className="shrink-0 w-36 h-36 relative flex items-center justify-center mx-auto md:mx-0">
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={categoryData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={32}
+                    outerRadius={52}
+                    paddingAngle={3}
+                    dataKey="value"
+                    stroke="#0f172a"
+                    strokeWidth={2}
+                  >
+                    {categoryData.map((entry) => (
+                      <Cell key={entry.categoryKey} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  <Tooltip
+                    formatter={(value: any) => [
+                      `${baseCurrencyObj.symbol}${Number(value).toFixed(2)}`,
+                      'Amount',
+                    ]}
+                    contentStyle={{
+                      backgroundColor: '#0f172a',
+                      borderColor: '#334155',
+                      borderRadius: '0.75rem',
+                      fontSize: '12px',
+                      color: '#f8fafc',
+                      boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.5)',
+                    }}
+                    itemStyle={{ color: '#c084fc' }}
+                  />
+                </PieChart>
+              </ResponsiveContainer>
+              {/* Inner Donut Label */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                <span className="text-[8px] font-medium text-slate-400 uppercase tracking-wider">Total</span>
+                <span className="text-xs font-extrabold text-white">
+                  {baseCurrencyObj.symbol}{groupTotalBase > 1000 ? `${(groupTotalBase / 1000).toFixed(1)}k` : groupTotalBase.toFixed(0)}
+                </span>
+              </div>
+            </div>
+
+            {/* Category Legend List */}
+            <div className="flex-1 w-full space-y-2 text-xs">
+              {categoryData.map((cat) => (
+                <div key={cat.categoryKey} className="flex items-center justify-between p-2 rounded-xl bg-slate-950/70 border border-slate-800/80 gap-3">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: cat.color }} />
+                    <span className="text-sm shrink-0">{cat.icon}</span>
+                    <span className="text-xs font-semibold text-slate-100 whitespace-nowrap">{cat.name}</span>
+                  </div>
+                  <div className="text-right shrink-0 flex items-center gap-2">
+                    <span className="text-xs font-bold text-slate-100">
+                      {baseCurrencyObj.symbol}{cat.value.toFixed(2)}
+                    </span>
+                    <span className="text-[10px] text-indigo-300 font-bold bg-indigo-950/80 border border-indigo-800/50 px-1.5 py-0.5 rounded-md">
+                      {cat.percentage}%
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Offline Math Ready Banner */}
       <div className="bg-slate-950 border border-slate-800/80 rounded-2xl p-3 flex items-center gap-3 text-xs text-slate-300">
