@@ -11,6 +11,12 @@
       "purpose": "any"
     },
     {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
@@ -24,7 +30,7 @@
     },
     {
       "src": "icon.svg",
-      "sizes": "512x512",
+      "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any"
     }
@@ -46,14 +52,28 @@
       "short_name": "Add",
       "description": "Quickly log a new expense",
       "url": "./?action=add-expense",
-      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
     },
     {
       "name": "Voice Expense",
       "short_name": "Voice",
       "description": "Log expense using voice",
       "url": "./?action=voice-expense",
-      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "any"
+        }
+      ]
     }
   ]
 }
