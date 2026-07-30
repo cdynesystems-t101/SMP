@@ -40,7 +40,22 @@
   "background_color": "#0f172a",
   "theme_color": "#4f46e5",
   "display": "standalone",
-  "display_override": ["window-controls-overlay", "tabbed", "standalone", "minimal-ui", "browser"],
+  "display_override": ["tabbed", "window-controls-overlay", "standalone", "minimal-ui", "browser"],
+  "tab_strip": {
+    "home_tab": {
+      "scope": "./",
+      "icons": [
+        {
+          "src": "icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png"
+        }
+      ]
+    },
+    "new_tab_button": {
+      "url": "./?action=add-expense"
+    }
+  },
   "orientation": "portrait",
   "dir": "ltr",
   "lang": "en-US",
