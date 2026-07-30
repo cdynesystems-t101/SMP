@@ -15,6 +15,8 @@ import { SettleUpModal } from './components/SettleUpModal';
 import { GroupMembersModal } from './components/GroupMembersModal';
 import { ExportShareModal } from './components/ExportShareModal';
 import { ExpenseDetailDrawer } from './components/ExpenseDetailDrawer';
+import { BackgroundSyncBanner } from './components/BackgroundSyncBanner';
+import { initServiceWorker, queuePendingSyncItem } from './utils/syncManager';
 
 export default function App() {
   // LocalStorage state management with fallback to mock data
@@ -57,6 +59,11 @@ export default function App() {
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [selectedExpenseDetail, setSelectedExpenseDetail] = useState<Expense | null>(null);
 
+  // Initialize Service Worker with Background Sync support
+  useEffect(() => {
+    initServiceWorker();
+  }, []);
+
   // Sync to LocalStorage
   useEffect(() => {
     localStorage.setItem('splitmate_groups', JSON.stringify(groups));
@@ -85,9 +92,11 @@ export default function App() {
   const handleSaveExpense = (expenseData: Omit<Expense, 'id' | 'createdAt'>) => {
     if (editingExpense) {
       // Edit existing
+      const updatedExp = { ...expenseData, id: editingExpense.id, createdAt: editingExpense.createdAt };
       setExpenses(
-        expenses.map((exp) => (exp.id === editingExpense.id ? { ...expenseData, id: exp.id, createdAt: exp.createdAt } : exp))
+        expenses.map((exp) => (exp.id === editingExpense.id ? updatedExp : exp))
       );
+      queuePendingSyncItem('EDIT_EXPENSE', updatedExp);
       setEditingExpense(undefined);
     } else {
       // Create new
@@ -97,6 +106,7 @@ export default function App() {
         createdAt: new Date().toISOString(),
       };
       setExpenses([newExp, ...expenses]);
+      queuePendingSyncItem('ADD_EXPENSE', newExp);
     }
     setIsAddExpenseOpen(false);
   };
@@ -104,6 +114,7 @@ export default function App() {
   // Handle Delete Expense
   const handleDeleteExpense = (expenseId: string) => {
     setExpenses(expenses.filter((e) => e.id !== expenseId));
+    queuePendingSyncItem('DELETE_EXPENSE', { id: expenseId });
     if (selectedExpenseDetail?.id === expenseId) {
       setSelectedExpenseDetail(null);
     }
@@ -116,6 +127,7 @@ export default function App() {
       id: `settle_${Date.now()}`,
     };
     setSettlements([newSettlement, ...settlements]);
+    queuePendingSyncItem('ADD_SETTLEMENT', newSettlement);
     setIsSettleUpOpen(false);
   };
 
@@ -170,6 +182,9 @@ export default function App() {
 
   return (
     <MobileFrame>
+      {/* Background Sync Banner */}
+      <BackgroundSyncBanner />
+
       {/* Top Header / Group Selector */}
       <GroupSelector
         groups={groups}
