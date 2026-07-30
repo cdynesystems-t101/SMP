@@ -40,7 +40,7 @@
   "background_color": "#0f172a",
   "theme_color": "#4f46e5",
   "display": "standalone",
-  "display_override": ["tabbed", "standalone", "minimal-ui", "browser"],
+  "display_override": ["window-controls-overlay", "tabbed", "standalone", "minimal-ui", "browser"],
   "orientation": "portrait",
   "dir": "ltr",
   "lang": "en-US",
