@@ -193,5 +193,8 @@
     "preferred_width": 400
   },
   "handle_links": "preferred",
-  "capture_links": "existing_client_navigate"
+  "capture_links": "existing_client_navigate",
+  "note_taking": {
+    "new_note_url": "./?action=add-expense"
+  }
 }
