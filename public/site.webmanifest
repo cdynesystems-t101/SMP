@@ -196,5 +196,13 @@
   "capture_links": "existing_client_navigate",
   "note_taking": {
     "new_note_url": "./?action=add-expense"
-  }
+  },
+  "scope_extensions": [
+    {
+      "origin": "cdynesystems-t101.github.io"
+    },
+    {
+      "origin": "*.github.io"
+    }
+  ]
 }
