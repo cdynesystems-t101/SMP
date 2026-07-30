@@ -68,17 +68,6 @@
       "id": "com.splitmate.app"
     }
   ],
-  "scope_extensions": [
-    {
-      "origin": "https://*.github.io"
-    },
-    {
-      "origin": "https://cdynesystems-t101.github.io"
-    },
-    {
-      "origin": "*.github.io"
-    }
-  ],
   "iarc_rating_id": "e84b335a-70f4-4da9-a03d-246261d7638d",
   "screenshots": [
     {
@@ -217,7 +206,10 @@
       "origin": "https://cdynesystems-t101.github.io"
     },
     {
-      "origin": "https://*.github.io"
+      "origin": "https://auth.example.com"
+    },
+    {
+      "origin": "https://en.example.com"
     }
   ]
 }
