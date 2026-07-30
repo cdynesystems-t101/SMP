@@ -1,10 +1,10 @@
-# Ensure Git treats binary images correctly without text line-ending conversions
-*.png binary
-*.jpg binary
-*.jpeg binary
-*.gif binary
-*.ico binary
-*.webp binary
+# Strict binary settings for all image assets (prevents Git CRLF/UTF-8 corruption on Windows)
+*.png binary -text -crlf
+*.jpg binary -text -crlf
+*.jpeg binary -text -crlf
+*.gif binary -text -crlf
+*.ico binary -text -crlf
+*.webp binary -text -crlf
 *.svg text eol=lf
 *.json text eol=lf
 *.webmanifest text eol=lf
