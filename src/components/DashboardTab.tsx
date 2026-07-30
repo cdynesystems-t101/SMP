@@ -70,9 +70,6 @@ export const DashboardTab: React.FC<DashboardTabProps> = ({
                 <span>Share / Export</span>
               </button>
             )}
-            <span className="bg-indigo-950 border border-indigo-700/50 px-2 py-0.5 rounded-full text-[10px] text-indigo-300 font-semibold">
-              {baseCurrencyObj.flag} Base: {group.baseCurrency}
-            </span>
           </div>
         </div>
 
